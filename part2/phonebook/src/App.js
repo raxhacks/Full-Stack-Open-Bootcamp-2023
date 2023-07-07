@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import personService from './services/persons'
+import './app.css'
 
 const Filter = ({newSearch, handleSearchChange}) => {
   return (
@@ -58,11 +59,37 @@ const Persons = ({persons, newSearch, setPersons}) => {
   );
 }
 
+const NotificationError = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="error">
+      {message}
+    </div>
+  )
+}
+
+const NotificationCreation = ({ message }) => {
+  if (message === null) {
+    return null
+  }
+
+  return (
+    <div className="creation">
+      {message}
+    </div>
+  )
+}
+
 const App = () => {
   const [ persons, setPersons ] = useState([]) 
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
   const [ newSearch, setNewSearch ] = useState('')
+  const [errorMessage, setErrorMessage] = useState('')
+  const [createdMessage, setCreatedMessage] = useState('')
 
   const handleNameChange = (event) => {
     setNewName(event.target.value)
@@ -104,7 +131,13 @@ const App = () => {
           }
         )
         .catch(error => {
-          console.log("Error occurred while updating the person:", error);
+          setErrorMessage(
+            `Information of '${newName}' has already been removed from server`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 4000)
+          setPersons(persons.filter(n => n.id !== id))
         });
       } else {
         setNewName('')
@@ -114,6 +147,12 @@ const App = () => {
       personService
       .create(personObject)
       .then(returnedPerson => {
+        setCreatedMessage(
+          `Added ${newName}`
+        )
+        setTimeout(() => {
+          setCreatedMessage(null)
+        }, 4000)
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
@@ -135,6 +174,8 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      {errorMessage === '' ? <></>:<NotificationError message={errorMessage} />}
+      {createdMessage === '' ? <></>:<NotificationCreation message={createdMessage} />}
       <Filter newSearch={newSearch} handleSearchChange={handleSearchChange}/>
       <h2>add a new</h2>
       <PersonForm
