@@ -3,6 +3,8 @@ const morgan = require('morgan')
 const app = express()
 const cors = require('cors')
 
+app.use(express.static('build'))
+
 app.use(cors())
 app.use(express.json());
 
@@ -110,6 +112,34 @@ app.post('/api/persons/create', (request, response) => {
     persons = persons.concat(person)
 
     response.json(person)
+})
+
+app.put('/api/persons/update/:id', (req, res) => {
+
+    const id =req.params.id
+
+    const body = req.body
+
+    if (!body.name) {
+        return response.status(400).json({ 
+            error: 'name missing' 
+        })
+    }
+
+    if (!body.number) {
+        return response.status(400).json({ 
+            error: 'number missing' 
+        })
+    }
+
+    persons = persons.map(person => {
+      if (person.id === id) {
+        return { ...person, number: body.number }; // Update the number property
+      }
+      return person;
+    });
+
+    res.json('person updated successfuly')
 })
 
 const PORT = process.env.PORT || 3001

@@ -15,6 +15,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "build:ui": "@powershell Remove-Item -Recurse -Force build && cd C:/Users/Rax/Documents/GitHub/Full-Stack-Open-Bootcamp-2023/part2/phonebook && npm run build && @powershell Copy-Item build -Recurse C:/Users/Rax/Documents/GitHub/phonebook_backend",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
