@@ -24,7 +24,7 @@ const PersonForm = (props) => {
   );
 }
 
-const Persons = ({persons, newSearch, setPersons}) => {
+const Persons = ({persons, newSearch, setPersons, setErrorMessage}) => {
 
   const deletefunction = (id, name) => {
     const confirmation = window.confirm(`Delete ${name} ?`);
@@ -36,6 +36,12 @@ const Persons = ({persons, newSearch, setPersons}) => {
         setPersons(updatedPersons);
       })
       .catch(error => {
+        setErrorMessage(
+          `${JSON.stringify(error.response.data.error)}`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 4000)
         console.log("Error occurred while deleting the person:", error);
       });
     } else {
@@ -158,6 +164,12 @@ const App = () => {
         setNewNumber('')
       })
       .catch(error => {
+        setErrorMessage(
+          `${JSON.stringify(error.response.data.error)}`
+        )
+        setTimeout(() => {
+          setErrorMessage(null)
+        }, 4000)
         console.log("Error occurred while adding the person:", error);
       });
     }
@@ -186,7 +198,7 @@ const App = () => {
       handleNumberChange={handleNumberChange}
       />
       <h2>Numbers</h2>
-      <Persons persons={persons} newSearch={newSearch} setPersons={setPersons}/>
+      <Persons persons={persons} newSearch={newSearch} setPersons={setPersons} setErrorMessage={setErrorMessage}/>
     </div>
   )
 }
