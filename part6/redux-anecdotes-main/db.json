@@ -1,0 +1,34 @@
+{
+  "anecdotes": [
+    {
+      "content": "Hola bro",
+      "id": 1,
+      "votes": 1
+    },
+    {
+      "content": "Hola bro 2",
+      "id": 2,
+      "votes": 0
+    },
+    {
+      "content": "dsdsd",
+      "id": "30361",
+      "votes": 0
+    },
+    {
+      "content": "a",
+      "id": "87310",
+      "votes": 6
+    },
+    {
+      "content": "asas",
+      "id": "60320",
+      "votes": 3
+    },
+    {
+      "content": "gdfgdgd",
+      "id": "62943",
+      "votes": 0
+    }
+  ]
+}
