@@ -7,6 +7,21 @@ usersRouter.get('/', async (request, response) => {
   response.json(users)
 })
 
+usersRouter.get('/:id', async (request, response) => {
+  const userId = request.params.id;
+  try {
+    const user = await User.findById(userId).populate('blogs', { title: 1, author: 1, url: 1, likes: 1 });
+
+    if (user) {
+      response.json(user);
+    } else {
+      response.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    response.status(500).json({ error: 'Something went wrong while fetching the user' });
+  }
+});
+
 usersRouter.post('/', async (request, response) => {
   const body = request.body
 

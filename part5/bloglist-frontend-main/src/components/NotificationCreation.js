@@ -1,12 +1,21 @@
+import { useSelector } from 'react-redux'
+
 const NotificationCreation = ({ message }) => {
   if (message === null) {
     return null
   }
 
+  const notification = useSelector(state => state.notification)
+
   return (
-    <div className="creation">
-      {message}
-    </div>
+    <>
+      {notification === '' ? <></>
+        :
+        <div className="creation">
+          {notification}
+        </div>
+      }
+    </>
   )
 }
 

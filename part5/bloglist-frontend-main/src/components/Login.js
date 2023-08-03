@@ -1,14 +1,14 @@
 import NotificationError from './NotificationError'
 import PropTypes from 'prop-types'
 
-const Login = ({ handleLogin, username, setUsername, password, setPassword, errorMessage }) => (
+const Login = ({ handleLogin, username, setUsername, password, setPassword }) => (
   <div>
     <h2>Log in to application</h2>
-    {errorMessage === '' ? <></>:<NotificationError message={errorMessage} />}
+    <NotificationError />
     <form onSubmit={handleLogin}>
-      username<input id='username' type="text" value={username} onChange={setUsername}/>
+      username<input id='username' type="text" value={username} onChange={(e) => setUsername(e.target.value)}/>
       <br/>
-      password<input id='password' type="password" value={password} onChange={setPassword}/>
+      password<input id='password' type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
       <br/>
       <button id="login-button" type="submit">Log in</button>
     </form>

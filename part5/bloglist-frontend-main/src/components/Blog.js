@@ -1,6 +1,7 @@
-import { useState } from 'react'
 
-const Blog = ({ blog, user, likeBlog, removeBlog }) => {
+import { Link } from 'react-router-dom'
+
+const Blog = ({ blog,  }) => {
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -9,11 +10,10 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
     marginBottom: 5,
   }
 
-  const [visible, setVisible] = useState(false)
-
   return (
     <div className="blog" style={blogStyle}>
-      <div>
+      <Link to={`/blogs/${blog.id}`}>{blog.title} {blog.author}</Link>
+      {/* <div>
         <div className="blog-title">{blog.title}</div>
         <div className="blog-author">{blog.author}</div>
         <button id="visibleinfo" onClick={() => setVisible((prev) => !prev)}>
@@ -33,7 +33,7 @@ const Blog = ({ blog, user, likeBlog, removeBlog }) => {
             remove
           </button>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
